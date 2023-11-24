@@ -85,7 +85,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "project_library.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
+    "project_library.books.apps.BooksConfig"    # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
