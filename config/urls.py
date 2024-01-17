@@ -4,13 +4,20 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from . import views
 
 urlpatterns = [
+    # path(
+    #     "",
+    #     TemplateView.as_view(template_name="pages/home.html"),
+    #     name="home",
+    # ),
     path(
         "",
-        TemplateView.as_view(template_name="pages/home.html"),
-        name="home",
+        views.HomeWithBooksView.as_view(),  # use HomeWithBooksView instead of TemplateView
+        name="books/",
     ),
+    
     path(
         "about/",
         TemplateView.as_view(template_name="pages/about.html"),
@@ -20,9 +27,10 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     
     # User management
+   
     path(
       "users/",
-        include("project_library.users.urls", namespace="users"),
+        include("project_library.users.urls", namespace="user"),
     ),
     path("accounts/", include("allauth.urls")),
     path('books/', include('books.urls')),

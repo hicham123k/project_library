@@ -1,4 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
+{% load get_item %}
 
 <!DOCTYPE html>
 <html>
@@ -7,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
+    {% block content %}
     <div class="container mt-5">
         <h1 class="text-center">Book List</h1>
         <div class="row">
@@ -22,10 +26,29 @@
                             <p class="card-text">{{ book.description }}</p>
                             <a href="{{ book.pdf.url }}" class="btn btn-primary">Download</a>
                         </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Comments</h5>
+                            {% for comment in comments|get_item:book.id %}
+                            <p><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</p>
+                        {% endfor %}
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Add a comment</h5>
+                            <form method="post" style="margin-top: 1.3em;">
+                                {% csrf_token %}
+                                {{ forms|get_item:book.id|crispy }}
+                                <input type="hidden" name="book_id" value="{{ book.id }}">
+                                <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+                            </form>
+                            </div>
+                            
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
+    {% endblock content %}
 </body>
 </html>

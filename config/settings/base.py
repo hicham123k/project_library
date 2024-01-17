@@ -6,6 +6,8 @@ from pathlib import Path
 
 import environ
 
+
+
 # project_library/
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 APPS_DIR = BASE_DIR / "project_library"
@@ -75,20 +77,27 @@ DJANGO_APPS = [
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     "django.forms",
+    
+    
 ]
 THIRD_PARTY_APPS = [
-    "crispy_forms",
+    
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    
+    
 ]
 
 LOCAL_APPS = [
     "project_library.users.apps.UsersConfig",
-    "project_library.books.apps.BooksConfig"    # Your stuff: custom apps go here
+    "project_library.books.apps.BooksConfig",
+    "crispy_forms",
+    
+       # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS 
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
@@ -96,6 +105,9 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIGRATION_MODULES = {
     "sites": "project_library.contrib.sites.migrations"
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -149,6 +161,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 # STATIC

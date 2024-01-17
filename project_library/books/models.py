@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import User
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -12,6 +14,14 @@ class Book(models.Model):
     class Meta:
         app_label = 'books'
 
+class Comment(models.Model):
+     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+     text = models.TextField()
+     created_date = models.DateTimeField(auto_now_add=True)
+#     likes = models.IntegerField(default=0)
+     
+     
 
 
-        
+
